@@ -7,6 +7,7 @@ import logging
 import yara
 import shutil
 import argparse
+#never run malware analysis outside of sandbox
 
 # Get the directory path of the script
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -45,6 +46,12 @@ def analyze_file(file_path):
             log_info("   Virtual Address: 0x{:08x}".format(section.VirtualAddress))
             log_info("   Size: 0x{:08x}".format(section.SizeOfRawData))
             log_info("")
+
+        # # Behavior Monitoring
+        # sandbox_path = os.path.join(script_dir, "sandbox")  # Replace "sandbox" with the path to your sandbox environment
+        # sandbox_file = os.path.join(sandbox_path, os.path.basename(file_path))
+        # shutil.copy2(file_path, sandbox_file)
+        # subprocess.Popen([sandbox_file], cwd=sandbox_path)
 
         # Code Disassembly
         md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
