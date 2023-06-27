@@ -19,7 +19,8 @@ structure of yara rule
 
 }*/
 
-rule ExeFileRule {
+rule ExeFileRule 
+{
     meta:
         description = "YARA rule for detecting .exe files"
     strings:
@@ -29,7 +30,8 @@ rule ExeFileRule {
         $mz_signature at 0 and $pe_signature at $mz_signature + 0x3C
 }
 
-rule Regex{
+rule Regex
+{
     meta:
         description = "Matches any numbers,chars that are 6 long"
     strings:
@@ -38,11 +40,44 @@ rule Regex{
         $reg 
 }
 
+rule Websites
+{
+    meta:
+        description = "Everything that has text/html as a content header, most common websites"
+    
+    strings:
+        $httpHeader = "Content-Type: text/html "
+    condition:
+        $httpHeader
+}
 
+rule Hexsignatures
+{
+    meta:
+        description = "Matches Hex Signature of PDF and PNG"
+    strings:
+        $HEX_PDF = {25 50 44 46}
+        $HEX_PNG = {89 50 4E 47 0D 0A 1A 0A}
+    condition:
+        any of them
+
+}
+
+rule URL
+{
+    meta:
+        description = "Detection of any URL or the Name of CEO"
+    strings:
+        $Regex_URL = /https?:\/\/([\w\.-]+)([\/\w\.-]*)/
+        $CEO = "Bob Kent" nocase
+    condition:
+        $Regex_URL or $CEO
+}
 /*
 apply to all rules for files < 2MB
 */
-global rule SmallFileSizeRule {
+global rule SmallFileSizeRule 
+{
     meta:
         description = "YARA rule for detecting files smaller than 2 MB"
     condition:
