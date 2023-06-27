@@ -2,7 +2,7 @@
 structure of yara rule
 
 */
-rule test{
+/*rule test{
 
     meta:
         author = "VALUE"
@@ -17,7 +17,7 @@ rule test{
     condition:
         any of them
 
-}
+}*/
 
 rule ExeFileRule {
     meta:
@@ -28,6 +28,16 @@ rule ExeFileRule {
     condition:
         $mz_signature at 0 and $pe_signature at $mz_signature + 0x3C
 }
+
+rule Regex{
+    meta:
+        description = "Matches any numbers,chars that are 6 long"
+    strings:
+        $reg = /[\w\d]{6}/ /*containing any char or num and is 6 long*/
+    condition:
+        $reg 
+}
+
 
 /*
 apply to all rules for files < 2MB
