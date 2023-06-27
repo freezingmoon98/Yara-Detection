@@ -16,7 +16,6 @@ script_dir = os.path.dirname(os.path.abspath(__file__))
 yara_rules_dir = os.path.join(script_dir, "yara_rules")  # Replace "yara_rules" with your Yara rules directory
 sys.path.append(yara_rules_dir)
 
-# Rest of the code...
 
 
 def setup_logging():
@@ -46,7 +45,7 @@ def analyze_file(file_path):
             log_info("   Virtual Address: 0x{:08x}".format(section.VirtualAddress))
             log_info("   Size: 0x{:08x}".format(section.SizeOfRawData))
             log_info("")
-
+# add your sandbox here and add code again to file. Never open files without sandbox
         # # Behavior Monitoring
         # sandbox_path = os.path.join(script_dir, "sandbox")  # Replace "sandbox" with the path to your sandbox environment
         # sandbox_file = os.path.join(sandbox_path, os.path.basename(file_path))
