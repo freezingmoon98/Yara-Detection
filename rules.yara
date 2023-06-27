@@ -32,7 +32,7 @@ rule ExeFileRule {
 /*
 apply to all rules for files < 2MB
 */
-rule SmallFileSizeRule {
+global rule SmallFileSizeRule {
     meta:
         description = "YARA rule for detecting files smaller than 2 MB"
     condition:
